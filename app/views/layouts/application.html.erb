@@ -1,33 +1,78 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a href="/"><span>Bookers2</span></a>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    </nav>
-  </head>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
 
-  <body>
-    <main>
+  <header class="shadow-sm">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       <div class="container">
+    <%= link_to "Bookers", root_path %>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+
     <% if user_signed_in? %>
+
+
+
       <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <%= link_to user_path(current_user.id) do %>
+        <i class="fas fa-home" style="color: white;" ></i>Home
+        <% end %>
       </li>
+      <li>
+        <%= link_to users_path do %>
+        <i class="fas fa-users" style="color: white;" ></i>Users
+        <% end %>
+      </li>
+      <li>
+        <%= link_to books_path do %>
+         <i class="fas fa-book-open" style="color: white;" ></i>Books
+         <% end %>
+      </li>
+      <li>
+        <%= link_to destroy_user_session_path, method: :delete do %>
+        <i class="fas fa-sign-out-alt" style="color: white;" ></i>Log out
+        <% end %>
+      </li>
+
     <% else %>
-      <li>
-        <%= link_to "Sign up", new_user_registration_path %>
+     <li>
+        <%= link_to root_path do %>
+        <i class="fas fa-home" style="color: white;" ></i>Home
+        <% end %>
       </li>
       <li>
-        <%= link_to "Log in", new_user_session_path %>
+        <%= link_to about_path do %>
+        <i class="fas fa-link" style="color: white;" ></i>About
+        <% end %>
+      </li>
+      <li>
+        <%= link_to new_user_registration_path do %>
+        <i class="fas fa-user-plus" style="color: white;" ></i>Sign up
+        <% end %>
+      </li>
+      <li>
+        <%= link_to new_user_session_path do %>
+        <i class="fas fa-sign-in-alt" style="color: white;" ></i>Log in
+        <% end %>
       </li>
     <% end %>
-  </main>
+      </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<%= render 'layouts/flash' %>
     <%= yield %>
 
     <footer>

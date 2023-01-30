@@ -5,10 +5,12 @@ Rails.application.routes.draw do
  devise_for :users
  root to: 'homes#top'
 get 'home/about' => 'homes#about' ,as: :about
-post 'books' => 'books#create'
-
- resources :users, only: [:show, :edit, :create]
- resources :books, only: [:new, :index, :show, :edit]
+#get 'users/show' => 'users#show' ,as: :user
+ patch 'users/:id' => 'users#update', as: 'update_user'
+  delete 'books/:id' => 'books#destroy', as: 'destroy_book'
+  patch 'books/:id' => 'books#update', as: 'update_book'
+ resources :users, only: [:show, :edit, :create, :index]
+ resources :books, only: [:new, :index, :show, :edit, :create, :destroy]
 
 
 

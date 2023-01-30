@@ -1,13 +1,11 @@
-<div><%= flash[:notice] %></div>
-<div><%= flash[:hoge] %></div>
+<h1>index</h1>
 
 <div class="container">
    <div class="row">
      <div class="col-md-3" style="background-color: white;">
-<%= render 'book' %>
+<%= render 'books/book' %>
 
-
-  <% if @user.profile_image.attached? %>
+<% if @user.profile_image.attached? %>
     <%= image_tag @user.profile_image, size: "200x200" %>
   <% else %>
     <%= image_tag 'default-image.jpeg', size: "200x200" %>
@@ -39,27 +37,29 @@
 </div>
 
 
-<div class="col-md-8 offset-md-1" style="background-color: white;">
- 
+  <div class="col-md-8 offset-md-1" style="background-color: white;">
     <table class="table table-striped">
-       <h3>Book detail</h3>
+      <h3>Users</h3>
+      <thead>
+        <tr>
+          <th>image</th>
+          <th>name</th>
+        </tr>
+      </thead>
       <tbody>
-       <tr>
-          <td><% if @user.profile_image.attached? %>
-            <%= image_tag @user.profile_image, size: "100x100" %>
+          <% @users.each do |user| %>
+          <tr>
+            <td>
+            <% if user.profile_image.attached? %>
+            <%= image_tag user.profile_image, size: "100x100" %>
             <% else %>
             <%= image_tag 'default-image.jpeg', size: "100x100" %>
             <% end %>
-          </td>
-          <td><%= link_to @user.name, user_path(@user.id) %></td>
-
-        <td><%= @book.title %></td>
-        <td><%= @book.body %></td>
-        <% if @book.user == current_user %>
-        <td><%= link_to "Edit", edit_book_path(@book.id) %></td>
-        <td><%= link_to "Destroy", destroy_book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか？" %></td>
-        <% end %>
-       </tr>
+            </td>
+            <td><%= user.name %></td>
+            <td><%= link_to "Show", user_path(user.id) %></td>
+          </tr>
+          <% end %>
       </tbody>
     </table>
   </div>
